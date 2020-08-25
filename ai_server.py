@@ -1,8 +1,8 @@
 # USAGE
 # Start the server:
-# 	python run_keras_server.py
+# 	python ai_server.py
 # Submit a request via cURL:
-# 	curl -X POST -F image=@dog.jpg 'http://localhost:5000/predict'
+# 	curl -X POST -F image=@nutx.jpg 'http://localhost:5000/predict'
 # Submita a request via Python:
 #	python simple_request.py
 
@@ -19,9 +19,7 @@ app = flask.Flask(__name__)
 model = None
 
 def load_model():
-	# load the pre-trained Keras model (here we are using a model
-	# pre-trained on ImageNet and provided by Keras, but you can
-	# substitute in your own networks just as easily)
+	# load the pre-trained Keras model
 	global model
 	global labels
 	labels=(["aci","allahverdi","fosa","incekara","karkalak","okay28","palaz","sivri","tombul","yassibadem","yuvarlakbadem"])
@@ -40,7 +38,6 @@ def prepare_image(image, target):
 	print(image)
 	image = img_to_array(image)
 	image = np.expand_dims(image, axis=0)/255
-	#image = imagenet_utils.preprocess_input(image)
 
 	# return the processed image
 	return image
