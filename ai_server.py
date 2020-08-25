@@ -66,9 +66,21 @@ def predict():
 				data["message"]="Pre-trained AI model can not be loaded! Please try later!"
 				print("Info: model file is not loaded!")
 			else:
-				pred = model.predict_classes(image)
-				print(pred)
-				data["prediction"] = labels[pred[0]]
+				# return first three probailities
+				top = 3
+				preds = model.predict(image)
+				for pred in preds:
+					top_indices = pred.argsort()[-top:][::-1]
+					result = [tuple(labels[i]) + (pred[i],) for i in top_indices]
+					results = {}
+					for i in top_indices:
+						results[labels[i]] = pred[i]
+						print("Predicted:", labels[i], " probability=", pred[i])
+				data["results"] = results
+				# single prediction
+				#pred = model.predict_classes(image)
+				#print(pred)
+				#data["prediction"] = labels[pred[0]]
 
 				# indicate that the request was a success
 				data["success"] = True
