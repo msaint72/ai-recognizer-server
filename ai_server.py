@@ -63,6 +63,7 @@ def predict():
 			# classify the input image
 			if model is None:
 				data["message"]="Pre-trained AI model can not be loaded! Please try later!"
+				print("Info: model file is not loaded!")
 			else:
 				pred = model.predict_classes(image)
 				print(pred)
