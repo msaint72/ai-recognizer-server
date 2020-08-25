@@ -59,12 +59,15 @@ def predict():
 			image = prepare_image(image, target=(150, 150))
 
 			# classify the input image
-			pred = model.predict_classes(image)
-			print(pred)
-			data["prediction"] = labels[pred[0]]
+			if model is None:
+				data["message"]="Pretraiend AI model can not be loaded! Please try later!"
+			else:
+				pred = model.predict_classes(image)
+				print(pred)
+				data["prediction"] = labels[pred[0]]
 
-			# indicate that the request was a success
-			data["success"] = True
+				# indicate that the request was a success
+				data["success"] = True
 
 	# return the data dictionary as a JSON response
 	return flask.jsonify(data)
