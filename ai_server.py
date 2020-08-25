@@ -17,16 +17,17 @@ import io
 # initialize our Flask application and the Keras model
 app = flask.Flask(__name__)
 model = None
+labels = []
 
+@app.before_first_request
 def load_model():
 	# load the pre-trained Keras model
 	global model
 	global labels
 	print("Info: setting labels...")
-	labels=(["aci","allahverdi","fosa","incekara","karkalak","okay28","palaz","sivri","tombul","yassibadem","yuvarlakbadem"])
+	labels = (["aci","allahverdi","fosa","incekara","karkalak","okay28","palaz","sivri","tombul","yassibadem","yuvarlakbadem"])
 	print("Info: reading model file...")
 	model = keras.models.load_model('nut_model.h5')
-	#model = ResNet50(weights="imagenet")
 
 def prepare_image(image, target):
 	# if the image mode is not RGB, convert it
