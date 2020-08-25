@@ -22,7 +22,9 @@ def load_model():
 	# load the pre-trained Keras model
 	global model
 	global labels
+	print("Info: setting labels...")
 	labels=(["aci","allahverdi","fosa","incekara","karkalak","okay28","palaz","sivri","tombul","yassibadem","yuvarlakbadem"])
+	print("Info: reading model file...")
 	model = keras.models.load_model('nut_model.h5')
 	#model = ResNet50(weights="imagenet")
 
@@ -60,7 +62,7 @@ def predict():
 
 			# classify the input image
 			if model is None:
-				data["message"]="Pretraiend AI model can not be loaded! Please try later!"
+				data["message"]="Pre-trained AI model can not be loaded! Please try later!"
 			else:
 				pred = model.predict_classes(image)
 				print(pred)
